@@ -7,7 +7,7 @@ public class Metronome {
 
     private double bpm;
     private int beat;
-    private int noteValue;
+    //private int noteValue;
     private int silence;
 
     private double beatSound;
@@ -18,20 +18,24 @@ public class Metronome {
 
     private AudioGenerator audioGenerator = new AudioGenerator(8000);
 
-    public Metronome() {
+    public Metronome(double bpm, int beats) {
         audioGenerator.createPlayer();
+        this.bpm = bpm;
+        this.beatSound = 523.25; // do
+        this.sound = 587.33; //re
+        this.beat = beats; //check what is it for
     }
 
     public void calcSilence() {
-        silence = (int) (((60/bpm)*8000)-tick);
+        silence = (int) (((60/this.bpm)*8000)-tick);
     }
 
     public void play() {
         calcSilence();
         double[] tick =
-                audioGenerator.getSineWave(this.tick, 8000, beatSound);
+                audioGenerator.getSineWave(this.tick, 8000, this.beatSound);
         double[] tock =
-                audioGenerator.getSineWave(this.tick, 8000, sound);
+                audioGenerator.getSineWave(this.tick, 8000, this.sound);
         double silence = 0;
         double[] sound = new double[8000];
         int t = 0,s = 0,b = 0;
